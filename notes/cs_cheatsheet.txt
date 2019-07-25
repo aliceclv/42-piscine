@@ -1,0 +1,4 @@
+# Recursivite
+
+
+utile pour afficher une chaine de caractère de droite vers la gauche en ayant acces qu'a la gauche

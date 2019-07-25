@@ -1,0 +1,7 @@
+ex02 => link test 3 and 5
+ex3 => put all the klist 
+ex4 ls -mpU
+
+for sh script => do not forget !#/bin/sh
+ex7 => only have b in the folder
+ex8 find . -name "*~" -delete -o -name "#*#" -delete

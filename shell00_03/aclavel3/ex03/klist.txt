@@ -1,0 +1,6 @@
+Credentials cache: API:9B4C38D7-2525-47A7-B7AD-C35A31709FB4
+        Principal: aclavel@42.FR
+
+  Issued                Expires               Principal
+Jul  1 19:34:10 2019  Jul  8 19:34:10 2019  krbtgt/42.FR@42.FR
+Jul  1 20:02:45 2019  Jul  8 19:34:10 2019  host/vgs-fn1.42.fr@42.FR

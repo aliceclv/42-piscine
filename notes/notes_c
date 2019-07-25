@@ -1,0 +1,792 @@
+C
+
+dictionary
+FR:  1 octet  8 bits
+EN:  1 byte   8 bits
+
+Intro basics
+---- execute files
+create any .c file
+and then compile wit gcc
+execution from top to bottom
+default output of the compiler is to create a.out file. But it's not readable by the computer, you need to execute it in order to read the content.
+after each command, I need to insert ';'
+
+basic program to print h
+
+why is a.out a program??
+
+```c
+#include <stdio.h>
+
+# on a tjrs besoin d'un main pr execute les fonctions
+# for char => only works with double quotes
+int main() {
+	printf("hello world \n");
+}
+```
+
+1) variables
+
+
+bites => 8 times smaller than bytes
+(bits) => octet
+1 octet = espace avec 8 bits qui permet de faire plein de combinaison de valeur
+
+
+data types
+- int entier positif ou negatif pas de virgules, il a une valeur minimale ou maximale
+un int fait 4 octet en memoire -> 32 bits qui vont de 0 à 1
+
+to name your variables: lowercase or uppercase and underscores allowed
+int a;
+int _Iok24;
+int Aksks_ksks;
+? (is there constant??)
+
+interpolation
+```
+#include <stdio.h>
+
+int main()
+{
+	int a; # declare variable
+	printf("hello %d world \n", a);
+}
+```
+Here we declare variable a but we don't give any value to this variable.
+=> more extended compilation: gcc -Wall -Werror -Wextra file.c
+in c when you declare a new var, it gets assigned a space in memory corresponding to its data type (eg. int => will get a 8 bytes space). If you don't assign any value to this variable, it will get assigned a random value. Your program won't crash but technically it's wrong (can lead to some errors).
+
+```
+#include <stdio.h>
+int main()
+{
+	int a;
+	a = 42;
+	printf("hello %d world\n", a);
+}
+```
+Can't use a variable that has not been previously defined!
+To print two values:
+```
+#include <stdio.h>
+
+int main()
+{
+	int a;
+	int b;
+	a = 42;
+	b = 89;
+	printf("hello %d, %d, world \n", a, b);	
+}
+```
+
+2) binary
+computer counts in base 2 and not in base 10
+142 is a value
+base = c'est une representation d'une valeur
+12 est 12 en base 10
+12 est 00001100 en base 2
+
+???
+La valeur elle, n'a pas changé
+valeur maximale c'est 255 en positif pour 1 octet
+un int fait 4 octet
+
+
+
+table
+NUM     128   64    32    16     8     4     2     1  
+VALUE | 2^7 | 2^6 | 2^5 | 2^4 | 2^3 | 2^2 | 2^1 | 2^0
+12       0     0     0     0     1     1     0     0
+13       0     0     0     0     1     0     1     1
+
+=> rien compris
+https://www.youtube.com/watch?v=I5UlJXNEKXY&list=PLVQYiy6xNUxz5wbzZn4tfUhF4djgzscB-&index=3
+
+3) data types
+- char
+char contient un byte (octet)
+which is a data type that holds a simple character (letter, number, etc.)
+traditionally one from the ASCII encoding. More recently, UTF-8 encoded characters are common. The char type can also store small integers and is technically an integer type.
+
+to know how many bytes
+`printf("%lu\n", sizeof(c));`
+
+Table ASCII
+`man ascii`
+# include <stdio.h>
+int main()
+{
+	char c;
+	c = 'k'; # single quote! let's try with double
+	printf("%lu %d %c", sizeof(c), c, c);
+}
+
+char sont signes => ils vont de -128 a +127
+
+
+- int
+un int c'est 4 octet (byte) => il est sur 32 bits
+1er bits c'est le bit du signe
+c'est un ensemble signé
+
+
+- float
+float f
+il fait 4 octet en memoire, virgule flottante.
+c'est converti en puissance => 1 bit est reserve a la puissance
+to declare float => use .
+
+- double
+float but with double size
+8 octet
+
+you can signed or unsigned your variables.
+by default all are signed.
+unsign and signed doesn't work on float and double.
+
+long int => double size of octet
+short int => divide by two size
+
+C Languages => basic types
+
+- double
+
+
+
+VARIABLE SCOPES
+scope is represented by curly braces
+the scope is descending, file is is already having a global scope
+you can redeclare variable into different scope
+a variable can be only defined (not assigned) once by scope!
+
+
+other data type -> arrays
+to define a new array
+int a[10]; => declare array of integer containing 10 integers
+
+you can define 2D arrays
+int a[10][10] (array into array) in memory == int a[100]
+you can pass the index 
+int a[10];
+int b;
+
+b = 3;
+a[b] = 10;
+
+
+STACK
+part of the memory that gets bigger and bigger as you create new variables or call functions?
+stack is continuous
+so if you modify values of your array that are not exisiting => it's going to modify / erase the values previously written
+at some point you even rewrite the lines before the main => then you get a segmentation fault
+
+
+
+OPERATORS
+same as ruby
++
+-
+/ => division euclidienne
+% => modulo, reste de la division euclidienne
+
+!!!! default built-in c has no power operator, you need to get it from an external library, putting math.h in your header....
+WTF .....
+
+Incrementation & decrementation
+++ operator it only changes the value of the variable depending of it's position
+#include <stdio.h>
+int i;
+i = 42;
+printf("%d\n, i++"); # is printing 42
+-----
+printf("%d\n", ++i); # is printing 43
+
+----
+++i + i # is not allowed in C, you can't modify the value of i and call it / reuse-it in the same line
+
+Same thing with the -- operator
+
+
+BINARY OPERATORS
+how to display binary value of char or any value:
+```
+#include <stdio.h> => to be able to use printf
+#include "secret.h"
+
+int main()
+{
+	char c;
+	c = 11;
+	d = 6;
+	aff_bin(c);
+	aff_bin(c & d);
+	aff_bin(!c);
+}
+```
+
+& operator => and operator => 0 if both numbers are different, or 1 if you have two 1, 0 always takes precedence what ever happens (is 0 false then?)
+00001011
+00000110
+&
+00000010
+
+| => or binary operator (becomes true - 1 if one of them is 1) 
+00001011
+00000110
+|
+00001111
+
+^ => xor binary operator
+same as the or, but when two values are true (1) => they become false (0)
+00001011
+00000110
+^
+00001101
+
+~ => negation operator, inverse all the bits
+
+not to be mistaken with the !
+! is not a binary operator
+if value is not 0 => return 1
+00000000
+!
+00000001
+
+
+<< to switch all the binary on the left 1 position, inserting a 0
+
+>> to switch on the right side
+! careful if it was signed => then it takes the value of the signed binary
+
+
+COMPARISON OPERATORS
+- value == value => 0 false and 1 is true (1 different from 0 - something else than 0)
+- >
+- >=
+- <
+- <=
+- ! bang operator (different from 0?)
+- != 
+You can combine operators
+- &&
+- ||
+
+
+CONDITIONALS
+- if / else / else if (they have scope like in ruby)
+if (0 or anything different from 0)
+{
+	printf("Youpi\n");
+}
+
+
+- switch (is it like case?)
+```c
+#include <stdio.h>
+int main()
+{
+	int a;
+	a = 9;
+	switch(a)
+	{
+		case 40:
+			printf("Youpi\n");
+		case 41:
+			printf("Yolo\n");
+		default:
+			printf("Youpo");
+	}
+}
+```
+switch as soon as case is matching, it will execute all the other bodies below,
+if you want to prevent it => you need to `break;`
+order doesn't really matter?
+default can be above everything
+you can remove the default as well
+
+for case => expect constant (not an expression) => compilateur peut le calculer en amont
+
+
+TERNAIRES
+
+! les ternaires imbriques sont interdits par la norminette
+
+! si une seule ligne la syntaxe pour le if peut être ecrite comme ceci:
+```
+if (a == 1)
+	printf("Great!\n");
+```
+
+LOOPS
+- while
+```
+#include <stdio.h>
+
+int main()
+{
+	int i;
+
+	i = 0;
+
+	while (i < 10)
+	{
+		printf(...);
+		i++;
+	}
+}
+```
+
+
+- do..while => special because execute the block of code at least one before evaluating the condition and trying to execute it again.
+```
+#include <stdio.h>
+
+int main() {
+	int i;
+
+	i = 10;
+	do
+	{
+		printf("%d\n", i);
+		i++;
+	}
+	while (i < 10)
+}
+```
+Will print  => 10 at least once
+(which would not have been the case with a basic while with initialization etc.)
+
+- for
+```
+#include <stdio.h>
+
+int main() {
+	int i;
+
+	for (i = 0; i < 10, i++);
+	{
+		printf("%d\n", i);
+	}
+}
+
+BREAK & CONTINUE
+break => to stop the execution (can be used in nested loops)
+continue => is basically like next in ruby
+always restart at the beginning of the loop
+! continue in for loop, the incrementation is still effective (because it's part of the args)
+
+
+LABEL & GOTO
+goto => ancetre de la boucle while
+! not authorized by the 42 norm
+to define a label (identifier) goto is going back to the label
+```
+#include <stdio.h>
+
+int main()
+{
+	int i;
+
+	i = 0;
+
+blabla:
+	while (i < 10)
+	{
+		printf(...);
+		i++;
+		goto bla;
+	}
+	...
+}
+```
+
+FUNCTIONS - INTRO
+
+# here you declare a function:
+what it returns, the name of the function and the parameters;
+apparently main can only be used with int... (but why?)
+int main();
+
+Prototype de fonction:
+definit sur ce renvoit la fonction, son nom et ses arguments, ensuite tu commences l'acollade et tu coooodes.
+
+
+2 KEY WORDS: STATIC & EXTERN
+static => associate function to a specific scope
+help to prevent the redefinition of function
+static between several files = helps to prevent redefining func.
+```
+#include <stdio.h>
+static void ft_greeting(char c)
+{
+	printf("%c", c);
+}
+```
+
+if context var:
+extern => 
+allows you in a file to refer to a variable defined in the global scope
+
+if you put static in front of a global variable in a file, this variable is only accessible in the file where it's declared.
+```
+static int gl_int = 12;
+```
+Then it's not accessible in another file anymore using extern.
+
+- last use of static:
+the variable won't be used in the stack: global variable only used in the function scope.
+une fois qu'elle est definie, elle ne peut pas etre reassignee mais incremente????
+s'il revoit static, il va direct passer a lincrementation
+```
+void	fct();
+
+int main()
+{
+	ftc();
+	ftc();
+	ftc();
+}
+```
+```
+#include <stdio.h>
+
+void	ftc()
+{
+	static int i = 0;
+	printf("%d", i);
+	i++;
+}
+```
+This will print on the screen: 1, 2, 3.
+
+
+!!!! char != string, it's just a value?
+Remember the `c = 'k';` example.
+
+CONSTANTS
+is especially used for pointers;
+wtf const
+
+POINTERS
+New type of variable
+Allows you to manage your memory
+Every process you launch has access to the whole virtual memory, even though you don't have it physically on your computer. When you don't have it in the RAM, then it goes in the disk (have a look at swap files).
+Pointers allows you to access the memory address of your variable and then use it and access this variable.
+
+
+for your pointer to work correctly, you need to declare the variable beforeend.
+And then you can declare your pointer. The compiler needs to know what kind of value expects at this address to work properly.
+
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int a;
+	int *ptr;
+
+	// and then to get the address of a and add it to the pointer (eperluate LOL)
+	ptr = &a; // pointer is taking the address of a
+	return (0);
+}
+``` 
+
+
+dereferencer un pointeur: modifier la variable dont le pointeur a l'adresse
+acceder a la variable pointée par le pointeur et la modifier si besoin
+
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int a;
+	int *ptr; // I declare a pointer on it.
+
+	a = 56;
+	ptr = &a; // j'assigne l'adresse de a au pointeur
+
+	// only ptr is just the address, and if we do *ptr we tell the compiler to use the value at the address of a.
+	// comme ptr a ete declare comme pointeur sur int, le compilateur est content
+	printf("%d\n", *ptr);
+
+	// we can reassign the value of *ptr (so the value at the address of a)
+	*ptr = 78;
+
+	printf("%d\n", a); // retourne bien 78, on a modifie la valeur de a;
+}
+```
+
+Pointer un pointeur
+On peut mettre un pointeur sur un pointeur:
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int a;
+	int *ptr;
+	int **ptr2;
+	int ***ptr3;
+
+	a = 42;
+	ptr = &a;
+	ptr2 = &ptr2;
+	ptr3 = &ptr2;
+
+	// et pour deferencer ensuite:
+	printf("%d \n", ***ptr3);
+	return (0);
+}
+```
+
+ARITHMETIQUES DES POINTEURS
+on peut modifier les adresses et acceder a d'autres valeurs.
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int b; // a ete declaree avant a sur la stack
+	int a;
+	int *ptr; // on declare le pointeur sur int
+
+	b = 23;
+	ptr = &a; // on assigne l'adresse de b au pointeur
+	printf("%p\n", ptr);
+	// et si on fait ptr + 1, on decale de 1 int et on accede a l'adresse de b
+	printf("%p\n", ptr + 1);
+	// on peut modifier la valeur de a via le pointeur ptr
+	*(ptr + 1) = 78;
+	printf("%d\n", b); // va afficher 78 et pas 23 
+
+
+}
+
+
+
+
+
+TABLEAUX & POINTEURS
+si je declare un tableau de 3 int
+int tab[3]
+tab c'est un pointeur sur ladresse du premier int
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int tab[3];
+	printf("%p\n", tab); // affiche une adresse 0x7...
+	return (0);
+}
+```
+tab est virtuellement un pointeur sur int, mais point de vue programme, c'est pas vrmt un pointeur, on peut pas assigner une adresse à tab (ni une valeur!).
+
+```
+#include <stdio.h>
+
+int main(void)
+{
+	int tab[3]; // la je declare mon tableau
+
+	int *ptr; // je declare un pointeur sur int
+
+	tab[0] = 54;
+	tab[1] = 145;
+	// si je veux acceder aux valeurs de tab je peux aussi faire
+	printf("%d\n", *tab); // 54
+	printf("%d\n", *(tab + 1)); // 145
+	// ca veut dire
+	// tab[n] == *(tab + n);
+
+
+	// comment def un tableau de pointeur?
+	int *tab_p[2];
+}
+```
+Pour se casser le cerveau: https://www.youtube.com/watch?v=YNu26XdEJDs&list=PLVQYiy6xNUxytsXWxZx6odBJMbRktIHTs&index=5
+
+
+
+CHAINES DE CHAR
+c'est une convention, ca n'existe pas reellement en C
+```
+#include <stdio.h>
+
+int main(void)
+{
+	char c;
+
+	c = '\0'; // ca donne la valeur int 0 à c!
+}
+```
+une chaine de caractere, c'est un ensemble de char qui se termine par un 0 (int 0) - du coup par un '\0' si c'est declare comme un caractere.
+tte chaine de char se termine par '\0'.
+
+comment on def une chaine de char:
+```
+#include <stdio.h>
+
+int main(void)
+{
+	char *str; // je def une chaine de char (en fait un pointeur sur char, un peu comme un tableau c'est un pointeur sur le premier char)
+	
+	str = "lol";
+	printf("%c %s\n", *str, str);
+	// *str c'est le premier caractere de la chaine
+	// str c'est toute la chaine entiere (on donne l'adresse et ca deroule jusqu'a trouver le char '\0')
+	// si on utilise "" ca devient une constante, on peut pas modifier la chaine de char
+	// si on veut modifier, il faut changer la declaration de la chaine:
+	char str[] = "lol"; 
+	// et ensuite on peut modifier un des char
+	str[0] = 'p';
+
+}
+
+
+UTILISATION GENERALE DES POINTEURS
+- modifier une valeur d'une var definie dans une fonction, depuis une autre fonction
+(mais en fait on pourrait pas se contenter de reassigner le resultat de la fonction a la var?)
+```
+#include <stdio.h>
+
+void fct(int *a) // on prototype une fonction qui prend en param un pointeur sur int (donc en fait une adresse)
+{
+	*a = *a + 42 // on deref ce pointeur pour acceder a la valeur en memoire
+}
+
+int main(void)
+{
+	int a;
+
+	a = 42;
+	printf("%d\n", a);
+	fct(&a);
+	printf("%d")
+}
+```
+Pq on fait ca? comme ca on peut modifier plusieurs valeurs sans avoir a tjrs faire des return, et on peut return d'autres trucs (ms cest chelou qd mm....)
+
+LE POINTEUR NUL
+
+```
+int main(void)
+{
+	int *ptr;
+
+	ptr = 0; // ne pointe sur rien, y'a rien a l'adresse 0
+	return (0);
+}
+```
+
+VOID
+a revoir pcq rien compris...
+https://www.youtube.com/watch?v=GxJ6_emGGdo&list=PLVQYiy6xNUxytsXWxZx6odBJMbRktIHTs&index=8
+
+
+MALLOC
+ip = partie de la memoire basse (le tas)
+contrairement a la stack on a un controle dessus
+la IP on peut utiliser des fonctions pour demander de la memoire, memoire transverse qu'on utilise a plusieurs endroits du programme
+
+malloc(sizeof()) => on passe le nombre d'octets qu'on veut allouer
+
+PREPROCESSEUR - COMPILATION
+gcc => 3 phases de compilation
+- cpp => phase de preproc
+- compilation: gcc -c main.c => qui donne un fichier main.o => on compile chaque fichier c individuellement
+- linker les fichiers .o ensembles avec ld
+
+commande de preprocesseur commence par '#'
+#include
+#define - peut être utilisé avec des variables
+#define LOL(x) hello %d x; (LOL va etre remplace par ce qui suit)
+a la compilation on peut define:
+gcc -Wall -Wextra -Werror -DPOUIC-8 => va def POUIC et lui donner la valeur 8
+
+
+TIPS
+to watch for inspiration for the c 00 exercises
+https://www.youtube.com/watch?v=QTSG5bGFMhM&list=PLVQYiy6xNUxz5wbzZn4tfUhF4djgzscB-&index=18
+
+to create your header
+fn + f1 (petit soleil)
+
+always put declaration at top and then put empty line after
+
+
+QUESTIONS
+=> est-ce qu'il faut des droits de fichiers spécifiques pour les compiler depuis autre serveur??
+=> pas trop compris le truc du static dans le scope d'une fonction (voir last use of static)
+=> Wtf constants?
+
+
+VIM SHORTCUTS
+https://openclassrooms.com/fr/courses/43538-reprenez-le-controle-a-laide-de-linux/42693-vim-lediteur-de-texte-du-programmeur
+
+
+var args => when you can pass as many arguments as you want!
+
+ternary operator are allowed, just not the imbricated ones
+to cast from one type to another
+int a;
+long lng;
+(long)(a)
+=> a becomes a long
+or you can assign it to a long
+lng = a; (not sure about this one)
+RESOURCES
+http://pythontutor.com/visualize.html#mode=edit
+http://paysdu42.fr/
+
+MAKEFILE
+
+
+MIEUX COMPRENDRE LES POINTEURS
+
+#include <stdlib.h>
+
+int		ft_ultimate_range(int **range, int min, int max)
+{
+	int		i;
+
+	if (min >= max)
+	{
+		*range = NULL;
+		return (0);
+	}
+	*range = malloc(sizeof(int) * (max - min));
+	if (!*range)
+		return (-1);
+	i = 0;
+	while (min + i < max)
+	{
+		(*range)[i] = min + i;
+		i++;
+	}
+	return (max - min);
+}
+
+#include <stdio.h>
+
+int		main(int ac, char **av)
+{
+	int		*range;
+	int		i;
+	int		size;
+
+	(void)ac;
+	//printf("%d\n", ft_ultimate_range(&range, atoi(av[1]), atoi(av[2])));
+	i = 0;
+	size = ft_ultimate_range(&range, atoi(av[1]), atoi(av[2]));
+	printf("SIZE: %d\n", size);
+	while (i < size)
+	{
+		printf("%d\n", range[i]);
+		i++;
+	}
+}
